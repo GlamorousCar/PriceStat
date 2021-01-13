@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Renaissance.vntg</title>
+    <meta name="description" content="Магазин витажной одежды
+
+">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="/static/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/assets/img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/static/assets/img/android-chrome-512x512.png">
+    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+SC">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Kaushan+Script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" href="/static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+    <link rel="stylesheet" href="/static/assets/css/untitled.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+
+      var data = google.visualization.arrayToDataTable([
+          ['Date', 'Price', 'Discount price'],
+          {% for obj in products.price %}
+              ['{{ obj.date|date:"Y-n-j" }}',  {{ obj.old_price }} , {{ obj.price }}],
+          {% endfor %}
+
+        ]);
+
+        var options = {
+        chart: {
+          title: 'Box',
+          subtitle: 'in'
+        },
+        width: 800,
+        height: 500,
+        curveType: 'function',
+      };
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+    </script>
+
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(156,52,52);">
+        <div class="container"><a class="navbar-brand" href="#" style="color: rgb(255,255,255);">Company Name</a>
+            <form class="form-inline mr-auto" target="_self">
+                <div class="form-group"><label for="search-field"><i class="fa fa-search" style="color: rgb(255,255,255);margin-right: 9px;"></i></label><input class="form-control search-field" type="search" id="search-field" name="search" style="background-color: rgb(156,52,52);"></div>
+            </form><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="color: rgb(255,255,255);">First Item</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color: rgb(255,255,255);">Second Item</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color: rgb(255,255,255);">Third Item</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row" style="margin-bottom: 0px;margin-top: 25px;max-width: 95%;">
+        <div class="col-md-5 col-lg-5 col-xl-5" style="margin-bottom: 7px;padding-left: 15px;margin-left: 0px;">
+            <h1>{{ products.name }}</h1>
+            <p style="padding-left: 10px;">{{ products.description|linebreaksbr }}</p>
+            <p style="padding-left: 10px;">{{ products.composition|linebreaksbr }}</p>
+            <p style="padding-left: 10px;">{{ products.weight|linebreaksbr }}</p>
+            <h6 class="text-monospace text-lowercase text-left text-dark ins" style="color: rgb(39,106,28);font-family: 'B612 Mono', monospace;">{{ products.price.0 }}<i class="fa fa-rouble"></i></h6>
+            <div id="chart_div"></div>
+
+        </div>
+        <div class="col-md-7 col-lg-7 col-xl-7">
+                <div class="col-10 col-sm-10 col-md-10 col-xl-9 text-center m-auto" style="margin-left: 0px;"><img class="img-thumbnail center-block" id="first" src="{{products.large }}"></div>
+        </div>
+    </div>
+
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/chart.min.js"></script>
+    <script src="/static/assets/js/bs-init.js"></script>
+</body>
+
+</html>

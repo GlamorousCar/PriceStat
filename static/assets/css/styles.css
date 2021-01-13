@@ -1,0 +1,179 @@
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
+  float: left;
+}
+
+#pagination {
+  text-align: left;
+}
+
+div {
+}
+
+@media (min-width: 1200px) {
+  #trow {
+    width: 1200px;
+  }
+}
+
+body {
+}
+
+#item {
+  margin-top: 30px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+div {
+}
+
+#qwe {
+  background-color: #fe0;
+  width: 25%;
+  position: relative;
+}
+
+#qwe:after {
+  content: "";
+  padding-top: 100%;
+  display: block;
+}
+
+#qwei {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.block {
+  width: 100%;
+}
+
+.block__inner {
+  width: 100%;
+  padding-top: 100%;
+  background-color: white;
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 876px) {
+  .col-6.col-sm-4.col-xl-4.d-inline-block.block {
+    padding-bottom: 3px;
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-top: 3px;
+  }
+}
+
+@media (min-width: 877px) {
+  .col-6.col-sm-4.col-xl-4.d-inline-block.block {
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+}
+
+#columna {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.col.bottom {
+  position: absolute;
+}
+
+.bottom {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  color: #ffffff;
+  width: 100%;
+  background-color: #673F0F;
+}
+
+body {
+  font-family: 'Alegreya SC';
+}
+
+.navbar.navbar-light.navbar-expand.text-center {
+  text-align: center;
+}
+
+#qwer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#trow {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.col {
+  height: 10px;
+}
+
+@media (min-width: 1200px) {
+  #qaz {
+  }
+}
+
+#wer {
+  width: 100%;
+}
+
+@media (max-width: 766px) {
+  .navbar.navbar-light.navbar-expand-md.text-center {
+    margin-bottom: 70px;
+  }
+}
+
+.navbar.navbar-light.navbar-expand-md.text-center {
+  /*background-image: url(../../assets/img/fotooboi-e-42223-rozi-besshovnie-klassicheskiy-uzor-krasivie-belie-tsveti-vinta-zakazposterov-ru_z.jpg);*/
+}
+
+.col-md-9.col-xl-7.justify-content-xl-center.align-items-xl-center.align-content-xl-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rounded-20 {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #rtyr {
+    margin-left: 80px;
+  }
+}
+
+.fa {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar.navbar-light.navbar-expand-md {
+  /*width: 13%;*/
+  height: 100%;
+}
+

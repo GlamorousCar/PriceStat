@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+       <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Renaissance.vntg</title>
+    <meta name="description" content="Магазин витажной одежды">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="/static/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/assets/img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/static/assets/img/android-chrome-512x512.png">
+    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+SC">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
+    <link rel="stylesheet" href="/static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/assets/css/slick-theme.css">
+    <link rel="stylesheet" href="/static/assets/css/slick.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+
+</head>
+<body>
+<div class="row" id="trow">
+    {% for obj in products%}
+        <div class="col-6 col-sm-4 col-xl-4 d-inline-block block" style="padding: auto;">
+                <div class="block__inner"><a href="#"><img class="image" src="{{ obj.bigimage }}" style="padding: 3px;"></a></div>
+        </div>
+
+    {% endfor %}
+</div>
+<footer class="rounded-0" style="margin-top: 17px;">
+        <nav class="text-center d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
+            <ul class="pagination">
+                {% if products.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+
+                {% endif %}
+                {% for page in products.paginator.page_range %}
+                <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
+                {% endfor %}
+
+
+                {% if products.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+
+                {% endif %}
+            </ul>
+
+        </nav>
+</footer>
+</body>
+</html>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">Sidebar Nav</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarCollapse"
+    aria-controls="navbarCollapse"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Item 1</a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link nav-link-collapse"
+          href="#"
+          id="hasSubItems"
+          data-toggle="collapse"
+          data-target="#collapseSubItems2"
+          aria-controls="collapseSubItems2"
+          aria-expanded="false"
+        >Item 2</a>
+        <ul class="nav-second-level collapse" id="collapseSubItems2" data-parent="#navAccordion">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">Item 2.1</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">Item 2.2</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Item 3</a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link nav-link-collapse"
+          href="#"
+          id="hasSubItems"
+          data-toggle="collapse"
+          data-target="#collapseSubItems4"
+          aria-controls="collapseSubItems4"
+          aria-expanded="false"
+        >Item 4</a>
+        <ul class="nav-second-level collapse" id="collapseSubItems4" data-parent="#navAccordion">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">Item 4.1</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">Item 4.2</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">Item 4.2</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Item 5</a>
+      </li>
+    </ul>
+    <form class="form-inline ml-auto mt-2 mt-md-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<main class="content-wrapper">
+  <div class="container-fluid">
+    <h1>Main Content</h1>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+      <div class="text-center">
+          <span>Coded by <a href="https://si-dev.com/ru">SI-Dev</a>, 2018</span>
+      </div>
+  </div>
+</footer>

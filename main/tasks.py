@@ -1,4 +1,4 @@
-from lentaparse.celery import app
+from PriceStatistics.celery import app
 import time
 from .parse import product_get
 from celery.utils.log import get_task_logger

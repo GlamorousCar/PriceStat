@@ -7,7 +7,7 @@ logger = get_task_logger(__name__)
 @app.task()
 def task_number_one():
     f = [196]
-    email = send_mail("Новый заказ",
+    email = send_mail("Провека celery",
                       "Заказ",
                       "prynikvany@gmail.com", ['Dr.JohnYu@yandex.ru'])
     print('ifjks')

@@ -161,3 +161,9 @@
   }
 }
 
+@media (min-width: 366px) {
+  .navbar.navbar-light.navbar-expand-md.navigation-clean {
+    height: 71px;
+  }
+}
+

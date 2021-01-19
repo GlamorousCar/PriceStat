@@ -54,34 +54,27 @@ def product_get(id):
             category = Category.objects.get(name=k['category'])
             composition = k['composition']
             slug = k['parameterize']
-            print('========')
-            print(k['sale'])
-            print(k['price'])
-            print(k['old_price'])
+            display_weight = k['display_weight']
             if k['sale'] == False:
                 old_price = k['price']
             else:
                 old_price = k['old_price']
-
             price = k['price']
-            r = Item(name=name,weight=weight,description=description,biggest=bigImage,large=largeImage,medium=mediumImage,small=smallImage,category= category, composition= composition,slug=slug)
+            r = Item(name=name,weight=weight,description=description,biggest=bigImage,large=largeImage,medium=mediumImage,small=smallImage,category= category, composition= composition,slug=slug,display_weight=display_weight)
             if Item.objects.filter(name = name).exists():
                 try:
-
-
                     t = PriceCheanges(price=price, old_price = old_price, item=Item.objects.get(name =k['name']) , date= datetime.date.today())
                     t.save()
                 except Exception as e:
-                    print('53',e)
+                    print(e)
 
-                print("Entry contained in queryset")
             else:
                 try:
                     r.save()
                     t = PriceCheanges(price=price, old_price = old_price, item=r, date= datetime.date.today())
                     t.save()
                 except Exception as e:
-                    print('62',e)
+                    print(e)
 
             list_k.append(k['model_id'])
     return list_k

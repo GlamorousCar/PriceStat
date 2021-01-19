@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Renaissance.vntg</title>
+    <title>PriceStatistics</title>
     <meta name="description" content="Магазин витажной одежды
 
 ">
@@ -31,68 +31,61 @@
 
 <body style="background-color: #ffffff;">
     <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(156,52,52);">
-        <div class="container"><a class="navbar-brand" href="#" style="color: rgb(255,255,255);">Company Name</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div
-                class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="color: rgb(255,255,255);">First Item</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color: rgb(255,255,255);">Second Item</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color: rgb(255,255,255);">Third Item</a></li>
-                </ul>
-        </div>
-        </div>
-    </nav>
-    <div class="row" style="margin-top: 145px;">
-        <div class="col-4 col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding-right: 0px;padding-left: 0px;" data-spy="scroll">
-            {% for category in categories %}
-                <div><a class="btn d-xl-flex justify-content-xl-start" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-{{ category.id }}" href="#collapse-{{ category.id }}" role="button" style="width: 100%;">{{ category.name }}</a>
-                    <div class="collapse" id="collapse-{{ category.id }}">
-                        <ul class="nav nav-tabs border-0" style="width: 100%;">
-                            {% for childcategory in category.category_set.all %}
-                                <li class="nav-item" style="width: 100%;margin-bottom: 0px;"><a class="nav-link active" href="/category/{{ childcategory.slug }}" style="width: 100%;font-size: 12px;color: rgb(0,0,0);">{{ childcategory.name }}</a></li>
-                                {% endfor %}
-                        </ul>
-                    </div>
+        <div class="container">
+            <div class="row d-flex justify-content-start align-items-center" style="margin-right: 0px;margin-left: 0px;height: 83%;min-height: 100%;margin-top: -6px;">
+                <div class="col-12 col-sm-4 col-md-3 col-lg-5 col-xl-5 text-left d-flex justify-content-center align-items-center justify-content-sm-center justify-content-md-center justify-content-lg-center" style="height: 100%;padding: 0px;"><a class="navbar-brand d-flex justify-content-center align-items-center" href="/" style="color: rgb(255,255,255);height: 43px;">Price-Stat</a></div>
+                <div class="col-12 col-sm-8 col-md-9 col-lg-7 col-xl-7" style="height: 100%;width: 100%;">
+                    <form class="form-inline d-flex justify-content-center align-items-center mr-auto" target="_self" style="height: 100%;width: 100%;">
+                        <div class="form-group">
+                            <div class="form-row d-flex justify-content-center align-items-center" style="height: 100%;width: 93%;">
+                                <div class="col-2 d-flex justify-content-center align-items-center" style="height: 100%;padding: 0px;"><i class="fa fa-search d-flex justify-content-center align-items-center" style="color: rgb(255,255,255);margin-right: 9px;"></i></div>
+                                <div class="col-10" style="height: 100%;"><input class="form-control search-field" type="search" id="search-field" name="search" style="background-color: rgb(156,52,52);width: 100%;"></div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            {% endfor %}
-
-        </div>
-        <div class="col-8 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-            <div class="row">
-                {% for obj in products%}
-                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" style="padding: auto;padding-top: 20px;padding-right: 20px;padding-bottom: 20xp;padding-left: 20px;">
-                        <div class="block__inner"><a href="{{ obj.get_absolute_url }}"><img class="image" src="{{ obj.medium }}" style="padding: 3px;"></a></div>
-                        <h2 style="margin-bottom: 0px;font-size: 20px; font-family:Arial, sans-serif;font-weight: 300;">{{ obj.price.0 }}&nbsp;₽&nbsp;</h2>
-                        <h5 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-family:'Helvetica Neue';">{{ obj.name|truncatechars:52 }}</h5>
-                        <h6 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;color:#999999;">{{ obj.weight }}</h6>
-
-                    </div>
-                {% endfor %}
             </div>
         </div>
+    </nav>
+    <div class="row" style="margin-top: 40px;">
+        <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" style="padding-right: 0px;padding-left: 0px;" data-spy="scroll">
+            <div><a class="btn d-xl-flex justify-content-xl-start"  aria-expanded="false" href="/" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-weight: 400;color: rgb(60,60,60);font-size: 14px;">Популярные товары</a>
+                <div
+                    class="collapse" id="collapse-0">
+                </div>
+        </div>
+            {% for category in categories %}
+            <div><a class="btn d-xl-flex justify-content-xl-start" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-{{ category.id }}" href="#collapse-{{ category.id }}" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-size: 14px;color: #3c3c3c;">{{ category.name }}</a>
+                <div class="collapse" id="collapse-{{ category.id }}">
+                    <ul class="nav nav-tabs border-0" style="width: 100%;">
+                        {% for childcategory in category.category_set.all %}
+                            <li class="nav-item" style="width: 100%;margin-bottom: 0px;"><a class="nav-link active" href="/category/{{ childcategory.slug }}"style="width: 100%;font-size: 12px;color: #3c3c3c;font-family: Roboto, sans-serif;">{{ childcategory.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+            </div>
+
+        </div>
+        {% endfor %}
+
     </div>
-    <footer class="rounded-0" style="margin-top: 17px;">
-        <nav class="text-center d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
-            <ul class="pagination">
-                {% if products.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-
-                {% endif %}
-                {% for page in products.paginator.page_range %}
-                <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
-                {% endfor %}
-
-
-                {% if products.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-
-                {% endif %}
-            </ul>
-
-        </nav>
-    </footer>
+    <div class="col-8 col-sm-8 col-md-9 col-lg-10 col-xl-10" style="margin-top: 30px;">
+        <h1 class="text-center" style="margin-bottom: 4px;margin-top: -20px;font-size: 34px;">{{ category.name }}</h1>
+        <div class="row">
+            {% for obj in products%}
+                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" style="padding: auto;padding-top: 20px;padding-right: 20px;padding-bottom: 20xp;padding-left: 20px;">
+                <div class="block__inner"><a href="{{ obj.get_absolute_url }}"><img class="image" src="{{ obj.large }}" style="padding: 3px;max-width: 100%;object-fit: scale-down;"></a></div>
+                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 24px;font-family: Roboto, sans-serif;font-weight: 600;">{{ obj.price.0 }}</h2>
+                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-weight: 400;font-family: Roboto, sans-serif;color: rgb(51,51,51);">{{ obj.name|truncatechars:52 }}</h2>
+                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-weight: 400;font-family: Roboto, sans-serif;color: rgb(139,152,164);">{{ obj.display_weight }}</h2>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
     <script src="/static/assets/js/jquery.min.js"></script>
     <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
+
 
 </html>

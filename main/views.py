@@ -10,9 +10,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 # Create your views here.
 def parsf(request):
-    #categories_get()
-    f = [19]
-    for i in f:
+
+    for i in categories_get():
         product_get(i)
     return render(request, 'index.html')
 

@@ -53,7 +53,7 @@ def product_get(id):
             smallImage = k['image']['small']
             category = Category.objects.get(name=k['category'])
             composition = k['composition']
-            slug = k['parameterize']
+            slug = k['id'] + '-' + k['parameterize']
             display_weight = k['display_weight']
             if k['sale'] == False:
                 old_price = k['price']

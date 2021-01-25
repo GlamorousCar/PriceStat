@@ -22,6 +22,7 @@ class PriceCheangesInline(admin.TabularInline):
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('name','weight', 'description')
+    search_fields = ('name')
     inlines = [PriceCheangesInline]
 
 

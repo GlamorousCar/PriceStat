@@ -30,13 +30,11 @@ google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawBackgroundColor);
 
 function drawBackgroundColor() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
 
       var data = google.visualization.arrayToDataTable([
-          ['Date', 'Price', 'Discount price'],
+          ['Date', 'Discount price', 'Price'],
           {% for obj in products.price %}
-              ['{{ obj.date|date:"Y-n-j" }}',  {{ obj.old_price }} , {{ obj.price }}],
+              ['{{ obj.date|date:"n.j.y" }}', {{ obj.price }}  , {{ obj.old_price }}],
           {% endfor %}
 
         ]);
@@ -46,7 +44,7 @@ function drawBackgroundColor() {
           title: 'Box',
           subtitle: 'in'
         },
-        width: 800,
+        width: 600,
         height: 500,
         curveType: 'function',
       };
@@ -110,7 +108,7 @@ function drawBackgroundColor() {
             </div>
             <div class="col-md-7 col-lg-7 col-xl-7" style="padding-left: 0px;">
                 <div class="row text-center d-sm-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-lg-center justify-content-xl-center slider-for" id="uyt" style="background-color: rgba(0,0,0,0);padding-left: 0px;margin-left: 0px;">
-                    <div class="col-10 col-sm-10 col-md-10 col-xl-9 text-center m-auto" style="margin-left: 0px;"><img class="img-thumbnail center-block" id="first" src="{{products.large }}"></div>
+                    <div class="col-10 col-sm-10 col-md-10 col-xl-9 text-center m-auto" style="margin-left: 0px;"><img class="img-thumbnail center-block" id="first" src="{{products.large }}" style="width:70%;"></div>
                 </div>
             </div>
         </div>

@@ -39,6 +39,7 @@ def product_get(id):
     d = json.loads(requests.get(url).text)['data']['total']
     chech = math.ceil(d / 30)
     list_k = []
+    today = datetime.date.today()
     global COUNT
     for step in range(chech):
         url = f'{site}/api/v8/shops/11/categories/{id}/products?sort=popularity&sort_order=desc&offset={step * 30}'
@@ -63,16 +64,18 @@ def product_get(id):
             r = Item(name=name,weight=weight,description=description,biggest=bigImage,large=largeImage,medium=mediumImage,small=smallImage,category= category, composition= composition,slug=slug,display_weight=display_weight)
             if Item.objects.filter(name = name).exists():
                 try:
-                    t = PriceCheanges(price=price, old_price = old_price, item=Item.objects.get(name =k['name']) , date= datetime.date.today())
-                    t.save()
+                    if len(PriceCheanges.objects.filter(item=Item.objects.get(name =k['name'])).filter(date= today)) < 1:
+                        t = PriceCheanges(price=price, old_price = old_price, item=Item.objects.get(name =k['name']) , date= today)
+                        t.save()
                 except Exception as e:
                     print(e)
 
             else:
                 try:
                     r.save()
-                    t = PriceCheanges(price=price, old_price = old_price, item=r, date= datetime.date.today())
-                    t.save()
+                    if len(PriceCheanges.objects.filter(item=Item.objects.get(name=k['name'])).filter(date=today)) < 1:
+                        t = PriceCheanges(price=price, old_price = old_price, item=r, date= today)
+                        t.save()
                 except Exception as e:
                     print(e)
 

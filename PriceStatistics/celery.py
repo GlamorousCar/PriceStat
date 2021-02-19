@@ -20,15 +20,10 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'task-number-one': {
         'task': 'main.tasks.task_number_one',
-        'schedule': crontab(),
+        'schedule': crontab(minute=0, hour=0),
     },
 }
 
 @app.task(bind=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
-
-
-
-
-#celery -A shopProject worker -l info -P eventlet

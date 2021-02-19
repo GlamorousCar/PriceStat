@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['176.119.158.22', 'shop.lenta.com']
+ALLOWED_HOSTS = ['127.0.0.1','193.124.206.230', 'shop.lenta.com']
 
 
 # Application definition
@@ -122,39 +122,10 @@ else:
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'console': {
-            'format': '%(name)-12s %(levelname)-8s %(message)s'
-        },
-        'file': {
-            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
-        }},
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console'},
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'formatter': 'file',
-            'filename': 'debug.log'
-        }
-    },
-    'loggers': {
-        '': {
-            'level': 'WARNING',
-            'handlers': ['console', 'file']
-        }
-    }
-}
-#REDIS_HOST = 'localhost'
-#REDIS_PORT = '6379'
-#CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
-#CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
-#CELERY_ACCEPT_CONTENT = ['application/json']
-#CELERY_RESULT_SERIALIZER = 'json'
-#CELERY_TASK_SERIALIZER = 'json'
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'

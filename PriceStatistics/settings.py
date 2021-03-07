@@ -1,23 +1,13 @@
-
 import os
 from pathlib import Path
+from loguru import logger
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+logger.add("debug.log", level="DEBUG", rotation="100 KB", retention="10 days")
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY')
+#DEBUG = os.environ.get('DEBUG')
 ALLOWED_HOSTS = ['127.0.0.1','193.124.206.230', 'shop.lenta.com']
-
-
-# Application definition
-
+DEBUG=os.environ.get("DEBUG")
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,24 +48,27 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'PriceStatistics.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': os.environ.get('DATABASE_NAME'),
+                'USER': os.environ.get('DATABASE_USER'),
+                'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+                'HOST': 'localhost',
+                'PORT': '',
+            }
+    }
 
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -93,9 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -104,16 +94,13 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+USE_TZ = False
 
 STATIC_URL = '/static/'
 if DEBUG:
     STATIC_DIR = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = [
-        STATIC_DIR,'/var/www/static/',
+        STATIC_DIR, "/var/www/static/",
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

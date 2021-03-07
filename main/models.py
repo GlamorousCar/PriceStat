@@ -45,6 +45,7 @@ class Category(models.Model):
 
 # Create your models here.
 class Item(models.Model):
+
     name = models.TextField(max_length=512,db_index=True)
     biggest = models.TextField(default='no-image.png')
     large = models.TextField(default='no-image.png')
@@ -64,6 +65,14 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return f'/category/{self.category}'+'/'+f'{self.slug}'
+
+    class Meta:
+        verbose_name_plural ='Продукты'
+        verbose_name = 'Продукт'
+        ordering = ['id']
+
+
+
 
 
 

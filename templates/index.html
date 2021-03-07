@@ -1,158 +1,104 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-       <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Renaissance.vntg</title>
-    <meta name="description" content="Магазин витажной одежды">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/img/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="180x180" href="/static/assets/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/static/assets/img/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/static/assets/img/android-chrome-512x512.png">
-    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+SC">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
-    <link rel="stylesheet" href="/static/assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/assets/css/slick-theme.css">
-    <link rel="stylesheet" href="/static/assets/css/slick.css">
-    <link rel="stylesheet" href="/static/assets/css/styles.css">
+<html>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>PriceStat</title>
+    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/assets/css/Sidebar-Menu-1.css">
+    <link rel="stylesheet" href="/static/assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="/static/assets/css/styles-1.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'line']});
+
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'Discount price', 'Price'],
+                {% for obj in products.price %}
+                    [new Date('{{ obj.date|date}}'),{{ obj.price }}, {{ obj.old_price }}],
+                {% endfor %}
+            ]);
+
+            var dateTicks = [];
+
+            for (var m = {{products.price.0.date|date:"n" }}; m <= {{products.price.last.date|date:"n" }}+1; m++)
+                    dateTicks.push(new Date('2021-' + m + '-1'));
+
+            var options = {
+                    legend: { position: 'bottom' },
+                    axisTitlesPosition:'in',
+                    height: 400,
+                    hAxis: {format: 'MMMM',  ticks: dateTicks  },
+                };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+
+            // Paul Irish’s Debounced resize plug-in
+            $(window).smartresize(function () {
+            chart.draw(data, options);
+            });
+        }
+    </script>
 </head>
+
 <body>
-<div class="row" id="trow">
-    {% for obj in products%}
-        <div class="col-6 col-sm-4 col-xl-4 d-inline-block block" style="padding: auto;">
-                <div class="block__inner"><a href="#"><img class="image" src="{{ obj.bigimage }}" style="padding: 3px;"></a></div>
+    <nav class="navbar navbar-light navbar-expand-md d-xl-flex align-items-xl-end navigation-clean" style="background-color: #1C461C;">
+        <div class="container">
+            <div class="row d-flex justify-content-start align-items-center" style="margin-right: 0px;margin-left: 0px;height: 83%;min-height: 100%;margin-top: -6px;">
+                <div class="col-12 col-sm-4 col-md-3 col-lg-5 col-xl-5 text-left d-flex justify-content-center align-items-center justify-content-sm-center justify-content-md-center justify-content-lg-center" style="height: 100%;padding: 0px;"><a class="navbar-brand d-flex justify-content-center align-items-center" href="/" style="color: rgb(255,255,255);height: 43px;">Price-Stat</a></div>
+                <div class="col-12 col-sm-8 col-md-9 col-lg-7 col-xl-7" style="height: 100%;width: 100%;">
+                    <form class="form-inline d-flex justify-content-center align-items-center mr-auto" target="_self" style="height: 100%;width: 100%;">
+                        <div class="form-group">
+                            <div class="form-row d-flex justify-content-center align-items-center" style="height: 100%;width: 93%;">
+                                <div class="col-2 d-flex justify-content-center align-items-center" style="height: 100%;padding: 0px;"><i class="fa fa-search d-flex justify-content-center align-items-center" style="color: rgb(255,255,255);margin-right: 9px;"></i></div>
+                                <div class="col-10" style="height: 100%;"><input class="form-control search-field" type="search" id="search-field" name="search" style="background-color: #2F502F;width: 100%;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper" style="background-color: #032103;padding-bottom: 9px;">
+            <div><a class="btn d-xl-flex justify-content-xl-start" aria-expanded="true"  href="/" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-size: 14px;color: #ffffff;">Популярные товары</a></div>
+            <div><a class="btn d-xl-flex justify-content-xl-start" aria-expanded="true"  href="/sales" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-size: 14px;color: #ffffff;">Скидки</a></div>
+
+            {% for category in categories %}
+            <div><a class="btn d-xl-flex justify-content-xl-start" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-{{ category.id }}" href="#collapse-{{ category.id }}" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-size: 14px;color: #c9c9c9;">{{ category.name }}</a>
+                <div class="collapse" id="collapse-{{ category.id }}">
+                    <ul class="nav nav-tabs border-0" style="width: 100%;">
+                        {% for childcategory in category.category_set.all %}
+                            <li class="nav-item" style="width: 100%;margin-bottom: 0px;"><a class="nav-link" href="/category/{{ childcategory.slug }}"style="width: 100%;font-size: 12px;color: #9b9999;background-color: #053205;font-family: Roboto, sans-serif;">{{ childcategory.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+            {% endfor %}
         </div>
 
-    {% endfor %}
-</div>
-<footer class="rounded-0" style="margin-top: 17px;">
-        <nav class="text-center d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
-            <ul class="pagination">
-                {% if products.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+        <div class="page-content-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
 
-                {% endif %}
-                {% for page in products.paginator.page_range %}
-                <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
-                {% endfor %}
-
-
-                {% if products.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-
-                {% endif %}
-            </ul>
-
-        </nav>
-</footer>
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/chart.min.js"></script>
+    <script src="/static/assets/js/bs-init.js"></script>
+    <script src="/static/assets/js/Sidebar-Menu.js"></script>
 </body>
+
 </html>
-
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Sidebar Nav</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarCollapse"
-    aria-controls="navbarCollapse"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Item 1</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link nav-link-collapse"
-          href="#"
-          id="hasSubItems"
-          data-toggle="collapse"
-          data-target="#collapseSubItems2"
-          aria-controls="collapseSubItems2"
-          aria-expanded="false"
-        >Item 2</a>
-        <ul class="nav-second-level collapse" id="collapseSubItems2" data-parent="#navAccordion">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 2.1</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 2.2</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Item 3</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link nav-link-collapse"
-          href="#"
-          id="hasSubItems"
-          data-toggle="collapse"
-          data-target="#collapseSubItems4"
-          aria-controls="collapseSubItems4"
-          aria-expanded="false"
-        >Item 4</a>
-        <ul class="nav-second-level collapse" id="collapseSubItems4" data-parent="#navAccordion">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 4.1</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 4.2</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span class="nav-link-text">Item 4.2</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Item 5</a>
-      </li>
-    </ul>
-    <form class="form-inline ml-auto mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-
-<main class="content-wrapper">
-  <div class="container-fluid">
-    <h1>Main Content</h1>
-  </div>
-</main>
-
-<footer class="footer">
-  <div class="container">
-      <div class="text-center">
-          <span>Coded by <a href="https://si-dev.com/ru">SI-Dev</a>, 2018</span>
-      </div>
-  </div>
-</footer>

@@ -1,123 +1,34 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>PriceStatistics</title>
-    <meta name="description" content="Магазин витажной одежды
-
-">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/img/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="180x180" href="/static/assets/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/static/assets/img/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/static/assets/img/android-chrome-512x512.png">
-    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+SC">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Kaushan+Script">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" href="/static/assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/assets/css/styles.css">
-    <link rel="stylesheet" href="/static/assets/css/untitled.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-google.charts.load('current', {packages: ['corechart', 'line']});
-google.charts.setOnLoadCallback(drawBackgroundColor);
-
-function drawBackgroundColor() {
-
-      var data = google.visualization.arrayToDataTable([
-          ['Date', 'Discount price', 'Price'],
-          {% for obj in products.price %}
-              ['{{ obj.date|date:"n.j.y" }}', {{ obj.price }}  , {{ obj.old_price }}],
-          {% endfor %}
-
-        ]);
-
-        var options = {
-        chart: {
-          title: 'Box',
-          subtitle: 'in'
-        },
-        width: 600,
-        height: 500,
-        curveType: 'function',
-      };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
-    </script>
-
-</head>
-<body>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(156,52,52);">
-        <div class="container">
-            <div class="row d-flex justify-content-start align-items-center" style="margin-right: 0px;margin-left: 0px;height: 83%;min-height: 100%;margin-top: -6px;">
-                <div class="col-12 col-sm-4 col-md-3 col-lg-5 col-xl-5 text-left d-flex justify-content-center align-items-center justify-content-sm-center justify-content-md-center justify-content-lg-center" style="height: 100%;padding: 0px;"><a class="navbar-brand d-flex justify-content-center align-items-center" href="#" style="color: rgb(255,255,255);height: 43px;">Price-Stat</a></div>
-                <div class="col-12 col-sm-8 col-md-9 col-lg-7 col-xl-7" style="height: 100%;width: 100%;">
-                    <form class="form-inline d-flex justify-content-center align-items-center mr-auto" target="_self" style="height: 100%;width: 100%;">
-                        <div class="form-group">
-                            <div class="form-row d-flex justify-content-center align-items-center" style="height: 100%;width: 93%;">
-                                <div class="col-2 d-flex justify-content-center align-items-center" style="height: 100%;padding: 0px;"><i class="fa fa-search d-flex justify-content-center align-items-center" style="color: rgb(255,255,255);margin-right: 9px;"></i></div>
-                                <div class="col-10" style="height: 100%;"><input class="form-control search-field" type="search" id="search-field" name="search" style="background-color: rgb(156,52,52);width: 100%;"></div>
-                            </div>
+{% extends 'index.html' %}
+{% block content %}
+<div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #4e7e4e;"></i></a>
+    <div class="row">
+        <div class="col-12 col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="margin-top: 30px;width: 100%;">
+            <div class="row" style="margin-bottom: 0px;margin-top: 25px;max-width: 95%;">
+                <div  class="col-md-12 col-lg-6 col-xl-7" style="margin-bottom: 0px;padding-left: 0px;margin-left: 0px;padding-right: 0px;">
+                    <h1 style="font-family: 'Roboto Slab', serif;font-size: 28px;font-weight: 700;color: rgb(51,51,51);">{{ products.name }}</h1>
+                    {% if products.description|length > 1 %}
+                    <h1 style="font-family: Roboto, sans-serif;font-size: 14px;color: rgb(155,153,153);">Описание</h1>
+                    <p style="padding-left: 10px;font-family: Roboto, sans-serif;font-size: 14px;color: rgb(51,51,51);">{{ products.description|linebreaksbr }}</p>
+                    {% endif %}
+                    {% if products.composition|length > 1 %}
+                    <h1 style="font-family: Roboto, sans-serif;font-size: 14px;color: rgb(155,153,153);">Состав</h1>
+                    <p style="padding-left: 10px;font-family: Roboto, sans-serif;font-size: 14px;color: rgb(51,51,51);">{{ products.composition|linebreaksbr }}</p>
+                    {% endif %}
+                    {% if products.weight|length > 1 %}
+                    <h1 style="font-family: Roboto, sans-serif;font-size: 14px;color: rgb(155,153,153);">Вес. {{ products.weight|linebreaksbr }}</h1>
+                    {% endif %}
+                    <h1 class="text-center" style="font-family: Roboto, sans-serif;font-size: 16px;color: rgb(0,0,0);">Статистика цен</h1>
+                    <div id="chart_div" style="width: 100%;"></div>
+            </div>
+                <div class="col-md-12 col-lg-6 col-xl-5" style="padding-left: 0px;padding-right: 0px;">
+                    <div class="row text-center d-sm-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-lg-center justify-content-xl-center slider-for" id="uyt" style="background-color: rgba(0,0,0,0);padding-left: 0px;margin-left: 0px;">
+                        <div class="col-12 col-sm-12 col-md-10 col-xl-8 text-center m-auto" style="margin-left: 0px;">
+                            <img class="img-thumbnail center-block" id="first" src="{{products.large }}" style="width:100%;">
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="row" style="margin-top: 40px;">
-        <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" style="padding-right: 0px;padding-left: 0px;" data-spy="scroll">
-            <div><a class="btn d-xl-flex justify-content-xl-start"  aria-expanded="false" href="/" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-weight: 400;color: rgb(60,60,60);font-size: 14px;">Популярные товары</a>
-                <div
-                    class="collapse" id="collapse-0">
-                </div>
-        </div>
-            {% for category in categories %}
-            <div><a class="btn d-xl-flex justify-content-xl-start" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-{{ category.id }}" href="#collapse-{{ category.id }}" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-size: 14px;color: #3c3c3c;">{{ category.name }}</a>
-                <div class="collapse" id="collapse-{{ category.id }}">
-                    <ul class="nav nav-tabs border-0" style="width: 100%;">
-                        {% for childcategory in category.category_set.all %}
-                            <li class="nav-item" style="width: 100%;margin-bottom: 0px;"><a class="nav-link active" href="/category/{{ childcategory.slug }}"style="width: 100%;font-size: 12px;color: #3c3c3c;font-family: Roboto, sans-serif;">{{ childcategory.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-            </div>
-
-        </div>
-        {% endfor %}
-
-    </div>
-    <div class="col-8 col-sm-8 col-md-9 col-lg-10 col-xl-10" style="margin-top: 30px;">
-        <div class="row" style="margin-bottom: 0px;margin-top: 25px;max-width: 95%;">
-            <div class="col-md-5 col-lg-5 col-xl-5" style="margin-bottom: 0px;padding-left: 0px;margin-left: 0px;padding-right: 0px;">
-                <h1 style="font-family: 'Roboto Slab', serif;font-size: 28px;font-weight: 700;color: rgb(51,51,51);">{{ products.name }}</h1>
-                <h1 style="font-family: Roboto, sans-serif;font-size: 14px;color: rgb(155,153,153);">Описание</h1>
-                <p style="padding-left: 10px;font-family: Roboto, sans-serif;font-size: 14px;color: rgb(51,51,51);">{{ products.description|linebreaksbr }}</p>
-                <h1 style="font-family: Roboto, sans-serif;font-size: 14px;color: rgb(155,153,153);">Состав</h1>
-                <p style="padding-left: 10px;font-family: Roboto, sans-serif;font-size: 14px;color: rgb(51,51,51);">{{ products.composition|linebreaksbr }}</p>
-                <h1 style="font-family: Roboto, sans-serif;font-size: 14px;color: rgb(155,153,153);">Вес. {{ products.weight|linebreaksbr }}</h1>
-                <h1 class="text-center" style="font-family: Roboto, sans-serif;font-size: 16px;color: rgb(0,0,0);">Статистика цен</h1>
-                <div id="chart_div"></div>
-                <!--TODO adaptive chart for mobile-->
-            </div>
-            <div class="col-md-7 col-lg-7 col-xl-7" style="padding-left: 0px;">
-                <div class="row text-center d-sm-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-lg-center justify-content-xl-center slider-for" id="uyt" style="background-color: rgba(0,0,0,0);padding-left: 0px;margin-left: 0px;">
-                    <div class="col-10 col-sm-10 col-md-10 col-xl-9 text-center m-auto" style="margin-left: 0px;"><img class="img-thumbnail center-block" id="first" src="{{products.large }}" style="width:70%;"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <script src="/static/assets/js/jquery.min.js"></script>
-    <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/assets/js/chart.min.js"></script>
-    <script src="/static/assets/js/bs-init.js"></script>
-</body>
-
-</html>
+</div>
+{% endblock %}

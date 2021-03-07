@@ -1,0 +1,15 @@
+@media (max-width: 578px) {
+  #qaz {
+    width: 323px;
+  }
+}
+
+@media (min-width: 993px) {
+  .col-xl-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20% !important;
+    flex: 0 0 20% !important;
+    max-width: 20%;
+  }
+}
+

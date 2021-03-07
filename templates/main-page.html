@@ -1,91 +1,53 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>PriceStatistics</title>
-    <meta name="description" content="Магазин витажной одежды
-
-">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/img/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="180x180" href="/static/assets/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/static/assets/img/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/static/assets/img/android-chrome-512x512.png">
-    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+SC">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Kaushan+Script">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" href="/static/assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/assets/css/Navigation-Clean.css">
-    <link rel="stylesheet" href="/static/assets/css/Navigation-with-Search.css">
-    <link rel="stylesheet" href="/static/assets/css/styles.css">
-    <link rel="stylesheet" href="/static/assets/css/untitled-1.css">
-    <link rel="stylesheet" href="/static/assets/css/untitled.css">
-</head>
-
-<body style="background-color: #ffffff;">
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(156,52,52);">
-        <div class="container">
-            <div class="row d-flex justify-content-start align-items-center" style="margin-right: 0px;margin-left: 0px;height: 83%;min-height: 100%;margin-top: -6px;">
-                <div class="col-12 col-sm-4 col-md-3 col-lg-5 col-xl-5 text-left d-flex justify-content-center align-items-center justify-content-sm-center justify-content-md-center justify-content-lg-center" style="height: 100%;padding: 0px;"><a class="navbar-brand d-flex justify-content-center align-items-center" href="/" style="color: rgb(255,255,255);height: 43px;">Price-Stat</a></div>
-                <div class="col-12 col-sm-8 col-md-9 col-lg-7 col-xl-7" style="height: 100%;width: 100%;">
-                    <form class="form-inline d-flex justify-content-center align-items-center mr-auto" target="_self" style="height: 100%;width: 100%;">
-                        <div class="form-group">
-                            <div class="form-row d-flex justify-content-center align-items-center" style="height: 100%;width: 93%;">
-                                <div class="col-2 d-flex justify-content-center align-items-center" style="height: 100%;padding: 0px;"><i class="fa fa-search d-flex justify-content-center align-items-center" style="color: rgb(255,255,255);margin-right: 9px;"></i></div>
-                                <div class="col-10" style="height: 100%;"><input class="form-control search-field" type="search" id="search-field" name="search" style="background-color: rgb(156,52,52);width: 100%;"></div>
-                            </div>
+{% extends 'index.html' %}
+{% block content %}
+    <style>
+    @media (min-width: 993px) {
+  .col-xl-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20% !important;
+    flex: 0 0 20% !important;
+    max-width: 20%;
+  }
+}
+    </style>
+<div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #4e7e4e;"></i></a>
+                <div class="row">
+                    <div class="col-12 col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="margin-top: 30px;width: 100%;padding-left: 0px;padding-right: 0px;">
+                        <h1 class="text-center" style="margin-bottom: 4px;margin-top: -20px;font-size: 34px;">{{ category.name }}</h1>
+                        <div class="row">
+                            {% for obj in products%}
+                                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" style="padding: auto;padding-top: 20px;padding-right: 20px;padding-bottom: 20xp;padding-left: 20px;">
+                                <div class="block__inner">
+                                    <a href="{{ obj.get_absolute_url }}"><img class="image" src="{{ obj.large }}" style="padding: 3px;max-width: 100%;object-fit: scale-down;"></a>
+                                </div>
+                                {% if obj.pricecheanges_set.last.price  < obj.pricecheanges_set.last.old_price %}
+                                <s style="color: #57cc0f;"><h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-family: Roboto, sans-serif;font-weight: 600;color: #57cc0f;">{{ obj.pricecheanges_set.last.old_price }}</h2></s>
+                                {% endif %}
+                                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 24px;font-family: Roboto, sans-serif;font-weight: 600;">{{ obj.pricecheanges_set.last.price }}</h2>
+                                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-weight: 400;font-family: Roboto, sans-serif;color: rgb(51,51,51);">{{ obj.name|truncatechars:52 }}</h2>
+                                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-weight: 400;font-family: Roboto, sans-serif;color: rgb(139,152,164);">{{ obj.display_weight }}</h2>
+                                </div>
+                            {% endfor %}
                         </div>
-                    </form>
+                        <footer class="rounded-0" style="margin-top: 17px;">
+                            <nav class="text-center d-xl-flex justify-content-xl-center">
+                                <ul class="pagination">
+                                    {% if products.has_previous %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                    {% endif %}
+                                    {% for page in products.paginator.page_range %}
+                                        <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
+                                    {% endfor %}
+                                    {% if products.has_next %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </footer>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <div class="row" style="margin-top: 40px;">
-        <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" style="padding-right: 0px;padding-left: 0px;" data-spy="scroll">
-            <div><a class="btn d-xl-flex justify-content-xl-start"  aria-expanded="false" href="/" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-weight: 400;color: rgb(60,60,60);font-size: 14px;">Популярные товары</a>
-                <div
-                    class="collapse" id="collapse-0">
-                </div>
-        </div>
-            {% for category in categories %}
-            <div><a class="btn d-xl-flex justify-content-xl-start" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-{{ category.id }}" href="#collapse-{{ category.id }}" role="button" style="width: 100%;font-family: Roboto, sans-serif;font-size: 14px;color: #3c3c3c;">{{ category.name }}</a>
-                <div class="collapse" id="collapse-{{ category.id }}">
-                    <ul class="nav nav-tabs border-0" style="width: 100%;">
-                        {% for childcategory in category.category_set.all %}
-                            <li class="nav-item" style="width: 100%;margin-bottom: 0px;"><a class="nav-link active" href="/category/{{ childcategory.slug }}"style="width: 100%;font-size: 12px;color: #3c3c3c;font-family: Roboto, sans-serif;">{{ childcategory.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-            </div>
-
-        </div>
-        {% endfor %}
-
-    </div>
-    <div class="col-8 col-sm-8 col-md-9 col-lg-10 col-xl-10" style="margin-top: 30px;">
-        <h1 class="text-center" style="margin-bottom: 4px;margin-top: -20px;font-size: 34px;">{{ category.name }}</h1>
-        <div class="row">
-            {% for obj in products%}
-                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" style="padding: auto;padding-top: 20px;padding-right: 20px;padding-bottom: 20xp;padding-left: 20px;">
-                <div class="block__inner"><a href="{{ obj.get_absolute_url }}"><img class="image" src="{{ obj.large }}" style="padding: 3px;max-width: 100%;object-fit: scale-down;"></a></div>
-                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 24px;font-family: Roboto, sans-serif;font-weight: 600;">{{ obj.price.0 }}</h2>
-                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-weight: 400;font-family: Roboto, sans-serif;color: rgb(51,51,51);">{{ obj.name|truncatechars:52 }}</h2>
-                <h2 style="margin-bottom: 0px;opacity: 0.91;font-size: 14px;font-weight: 400;font-family: Roboto, sans-serif;color: rgb(139,152,164);">{{ obj.display_weight }}</h2>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    </div>
-    <script src="/static/assets/js/jquery.min.js"></script>
-    <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
-
-</body>
+{% endblock %}
 
 
-</html>
+
